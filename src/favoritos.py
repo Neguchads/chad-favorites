@@ -152,7 +152,7 @@ class BookmarkManager:
         top_frame = ttk.Frame(self.root, padding=10)
         top_frame.pack(fill=tk.X)
 
-        btn_load = ttk.Button(top_frame, text="📁 Carregar HTML",
+        btn_load = ttk.Button(top_frame, text="📁 Load HTML",
                               command=self.load_html, style="Accent.TButton")
         btn_load.pack(side=tk.LEFT, padx=(0, 5))
 
