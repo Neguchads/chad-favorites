@@ -50,7 +50,7 @@ pip install -r requirements.txt
 
 ### 3. Execução
 ```bash
-python src/favoritos.py
+python src/favorites.py
 ```
 
 ### 4. Gerar Executável (.exe)
@@ -65,7 +65,7 @@ pyinstaller chad-favorites.spec
 ```text
 chad-favorites/
 ├── src/
-│   └── favoritos.py       # Lógica principal da aplicação
+│   └── favorites.py       # Lógica principal da aplicação
 ├── assets/
 │   └── icon.ico           # Ícone oficial do app
 ├── chad-favorites.spec    # Configuração de build do PyInstaller
