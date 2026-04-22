@@ -35,9 +35,13 @@ if not os.path.exists(_APP_DIR):
         _APP_DIR = os.path.dirname(sys.executable) if getattr(sys, 'frozen', False) else os.path.dirname(os.path.abspath(__file__))
 
 RECENT_FILES_PATH = os.path.join(_APP_DIR, "recent_files.json")
+FAVICONS_DIR = os.path.join(_APP_DIR, "favicons")
 MAX_RECENT = 5
 FAVICON_SIZE = (16, 16)
 FAVICON_API = "https://www.google.com/s2/favicons?sz=16&domain={domain}"
+
+# Garante que a pasta de favicons existe
+os.makedirs(FAVICONS_DIR, exist_ok=True)
 
 # Ícone da aplicação — relativo ao executável ou ao script
 _BASE_DIR = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
@@ -343,15 +347,35 @@ class BookmarkManager:
         self.root.after(0, self.favicon_status.config, {"text": f"✅ {total} ícone(s) carregado(s)"})
 
     def _fetch_favicon(self, session, domain):
-        """Baixa o favicon do Google S2 e retorna um ImageTk.PhotoImage"""
+        """Busca o favicon (Cache em memória -> Cache em disco -> Download)"""
         if domain in self._favicon_cache:
             return self._favicon_cache[domain]
 
+        # 1. Tenta carregar do cache em disco
+        local_path = os.path.join(FAVICONS_DIR, f"{domain}.png")
+        if os.path.exists(local_path):
+            try:
+                img = Image.open(local_path).resize(FAVICON_SIZE, Image.LANCZOS)
+                photo = ImageTk.PhotoImage(img)
+                self._favicon_cache[domain] = photo
+                return photo
+            except Exception:
+                pass
+
+        # 2. Se não existir no disco, faz o download
         url = FAVICON_API.format(domain=domain)
         resp = session.get(url, timeout=5)
         resp.raise_for_status()
 
-        img = Image.open(io.BytesIO(resp.content)).resize(FAVICON_SIZE, Image.LANCZOS)
+        img_data = io.BytesIO(resp.content)
+        img = Image.open(img_data).resize(FAVICON_SIZE, Image.LANCZOS)
+        
+        # Salva no disco para a próxima vez
+        try:
+            img.save(local_path, "PNG")
+        except Exception:
+            pass
+
         photo = ImageTk.PhotoImage(img)
         self._favicon_cache[domain] = photo
         return photo
