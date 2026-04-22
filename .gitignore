@@ -1,0 +1,17 @@
+# Ignorar pastas de build do PyInstaller
+build/
+dist/
+
+# Ignorar o executável gerado (boas práticas pro GitHub, depois mostro como enviar como Release)
+*.exe
+
+# Pastas de cache padrão do Python
+__pycache__/
+*.py[cod]
+
+# Arquivos de spec do pyinstaller
+*.spec
+
+# Credenciais e Artefatos Locais de Autenticação/DRM
+*sigil_credential*.txt
+*Sigil_Credential*.txt
