@@ -22,7 +22,19 @@ except ImportError:
 # -------------------------------------------------------
 # Constantes
 # -------------------------------------------------------
-RECENT_FILES_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "recent_files.json")
+if getattr(sys, 'frozen', False):
+    # Em modo executável, usamos a pasta AppData do usuário para persistência garantida
+    _APP_DIR = os.path.join(os.environ.get('APPDATA', os.path.expanduser('~')), "GerenciadorFavoritos")
+else:
+    _APP_DIR = os.path.dirname(os.path.abspath(__file__))
+
+if not os.path.exists(_APP_DIR):
+    try:
+        os.makedirs(_APP_DIR, exist_ok=True)
+    except Exception:
+        _APP_DIR = os.path.dirname(sys.executable) if getattr(sys, 'frozen', False) else os.path.dirname(os.path.abspath(__file__))
+
+RECENT_FILES_PATH = os.path.join(_APP_DIR, "recent_files.json")
 MAX_RECENT = 5
 FAVICON_SIZE = (16, 16)
 FAVICON_API = "https://www.google.com/s2/favicons?sz=16&domain={domain}"
@@ -76,10 +88,12 @@ def load_recent_files():
 def save_recent_files(files):
     """Persiste a lista de arquivos recentes no disco"""
     try:
+        # Garante que a pasta existe antes de salvar
+        os.makedirs(os.path.dirname(RECENT_FILES_PATH), exist_ok=True)
         with open(RECENT_FILES_PATH, "w", encoding="utf-8") as f:
-            json.dump(files, f, ensure_ascii=False)
-    except Exception:
-        pass
+            json.dump(files, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        print(f"Erro ao salvar histórico: {e}")
 
 
 # -------------------------------------------------------
