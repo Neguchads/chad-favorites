@@ -41,3 +41,4 @@
 | v1.1 | 2026-04-22 | Validação de URL, histórico recente, ordenação por coluna, rodapé contador |
 | v1.2 | 2026-04-22 | Favicons assíncronos (Pillow + threading), exportar filtro como HTML, status bar detalhada |
 | v1.3 | 2026-04-22 | Ícone ICO no executável e janela, detecção de tema cross-platform via darkdetect |
+| v1.4 | 2026-04-22 | Remoção da barra de status verde e carregamento automático do último arquivo no histórico |

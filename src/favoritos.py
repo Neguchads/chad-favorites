@@ -115,6 +115,10 @@ class BookmarkManager:
         self.setup_ui()
         self._make_default_icon()
 
+        # Carrega automaticamente o último arquivo, se houver
+        if self.recent_files:
+            self.load_html(filepath=self.recent_files[0])
+
     # -------------------------------------------------------
     # UI
     # -------------------------------------------------------
@@ -125,16 +129,6 @@ class BookmarkManager:
         style = ttk.Style()
         style.configure("Treeview", font=('Segoe UI', 10), rowheight=20)
         style.configure("Treeview.Heading", font=('Segoe UI', 10, 'bold'))
-
-        # Header de status
-        header_color = "#107C41"
-        status_frame = tk.Frame(self.root, bg=header_color, pady=5)
-        status_frame.pack(fill=tk.X)
-        self.status_label = tk.Label(
-            status_frame, text="Pronto para uso",
-            bg=header_color, fg="white", font=('Segoe UI', 9, 'bold')
-        )
-        self.status_label.pack(side=tk.RIGHT, padx=10)
 
         # Frame de controles
         top_frame = ttk.Frame(self.root, padding=10)

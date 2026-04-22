@@ -7,7 +7,7 @@
 ## 📌 Visão Geral
 
 **Projeto:** `favorites-search-version2`
-**Versão atual:** v1.3
+**Versão atual:** v1.4
 **Linguagem:** Python 3
 **UI:** Tkinter + `sv_ttk` (Sun Valley Theme)
 **Parser:** BeautifulSoup 4
@@ -168,3 +168,5 @@ for dt in direct_dts:
 - [x] Exportar favoritos filtrados como HTML Netscape
 - [x] Ícone `.ico` no executável e na janela
 - [x] Detecção de tema cross-platform via `darkdetect`
+- [x] Remoção da barra de status verde ("Pronto para uso") do topo
+- [x] Carregamento automático do último arquivo carregado na inicialização do app
