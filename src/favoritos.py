@@ -157,18 +157,18 @@ class BookmarkManager:
         btn_load.pack(side=tk.LEFT, padx=(0, 5))
 
         # Recentes
-        self.btn_recent = ttk.Menubutton(top_frame, text="🕐 Recentes ▾")
+        self.btn_recent = ttk.Menubutton(top_frame, text="🕐 Recent ▾")
         self.btn_recent.pack(side=tk.LEFT, padx=(0, 5))
         self.recent_menu = tk.Menu(self.btn_recent, tearoff=0)
         self.btn_recent["menu"] = self.recent_menu
         self._rebuild_recent_menu()
 
         # Exportar
-        self.btn_export = ttk.Button(top_frame, text="💾 Exportar filtro",
+        self.btn_export = ttk.Button(top_frame, text="💾 Export Filter",
                                      command=self.export_filtered, state="disabled")
         self.btn_export.pack(side=tk.LEFT, padx=(0, 20))
 
-        ttk.Label(top_frame, text="Pesquisar:", font=('Segoe UI', 10)).pack(side=tk.LEFT)
+        ttk.Label(top_frame, text="Search:", font=('Segoe UI', 10)).pack(side=tk.LEFT)
         self.entry_search = ttk.Entry(top_frame, width=45, font=('Segoe UI', 10))
         self.entry_search.pack(side=tk.LEFT, padx=10)
         self.entry_search.bind("<KeyRelease>", self.filter_bookmarks)
@@ -177,9 +177,9 @@ class BookmarkManager:
         columns = ("url",)
         self.tree = ttk.Treeview(self.root, columns=columns, selectmode="browse")
 
-        self.tree.heading("#0", text="Nome ↕", anchor=tk.W,
+        self.tree.heading("#0", text="Name ↕", anchor=tk.W,
                           command=lambda: self._sort_tree("#0"))
-        self.tree.heading("url", text="Endereço (URL) ↕", anchor=tk.W,
+        self.tree.heading("url", text="Address (URL) ↕", anchor=tk.W,
                           command=lambda: self._sort_tree("url"))
 
         self.tree.column("#0", width=400, stretch=tk.NO)
@@ -218,7 +218,7 @@ class BookmarkManager:
     def _rebuild_recent_menu(self):
         self.recent_menu.delete(0, tk.END)
         if not self.recent_files:
-            self.recent_menu.add_command(label="(nenhum arquivo recente)", state="disabled")
+            self.recent_menu.add_command(label="(no recent files)", state="disabled")
         else:
             for path in self.recent_files:
                 self.recent_menu.add_command(
@@ -226,7 +226,7 @@ class BookmarkManager:
                     command=lambda p=path: self.load_html(filepath=p)
                 )
             self.recent_menu.add_separator()
-            self.recent_menu.add_command(label="🗑 Limpar histórico", command=self._clear_recent)
+            self.recent_menu.add_command(label="🗑 Clear history", command=self._clear_recent)
 
     def _add_to_recent(self, filepath):
         if filepath in self.recent_files:
@@ -252,8 +252,8 @@ class BookmarkManager:
             return
 
         if not os.path.exists(filepath):
-            messagebox.showerror("Arquivo não encontrado",
-                                 f"O arquivo não existe mais:\n{filepath}")
+            messagebox.showerror("File not found",
+                                 f"The file no longer exists:\n{filepath}")
             return
 
         with open(filepath, 'r', encoding='utf-8', errors='ignore') as file:
@@ -323,7 +323,7 @@ class BookmarkManager:
     def _start_favicon_loader(self):
         if not self._pending_favicons:
             return
-        self.favicon_status.config(text="⏳ Carregando ícones...")
+        self.favicon_status.config(text="⏳ Loading icons...")
         t = threading.Thread(target=self._load_favicons_worker, daemon=True)
         t.start()
 
@@ -342,9 +342,9 @@ class BookmarkManager:
             self.root.after(0, self._apply_favicon, iid, domain, icon)
             done += 1
             self.root.after(0, self.favicon_status.config,
-                            {"text": f"⏳ Ícones: {done}/{total}"})
+                            {"text": f"⏳ Icons: {done}/{total}"})
 
-        self.root.after(0, self.favicon_status.config, {"text": f"✅ {total} ícone(s) carregado(s)"})
+        self.root.after(0, self.favicon_status.config, {"text": f"✅ {total} icon(s) loaded"})
 
     def _fetch_favicon(self, session, domain):
         """Busca o favicon (Cache em memória -> Cache em disco -> Download)"""
@@ -403,7 +403,7 @@ class BookmarkManager:
         for item in self.tree.get_children():
             self.tree.delete(item)
 
-        result_node = self.tree.insert("", 'end', text="🔍 Resultados da Pesquisa", open=True)
+        result_node = self.tree.insert("", 'end', text="🔍 Search Results", open=True)
         count = 0
         for bm in self.all_bookmarks:
             if query in bm['title'].lower() or query in bm['url'].lower():
@@ -416,7 +416,7 @@ class BookmarkManager:
                 count += 1
 
         self.footer_label.config(
-            text=f"{count} resultado(s) para \"{self.entry_search.get()}\""
+            text=f"{count} result(s) for \"{self.entry_search.get()}\""
         )
         # Habilita exportar apenas se há resultados
         self.btn_export.config(state="normal" if count > 0 else "disabled")
@@ -429,7 +429,7 @@ class BookmarkManager:
         """Salva os favoritos visíveis no resultado de pesquisa como HTML"""
         query = self.entry_search.get().strip()
         if not query:
-            messagebox.showinfo("Exportar", "Nenhum filtro ativo. Pesquise algo antes de exportar.")
+            messagebox.showinfo("Export", "No active filter. Search for something before exporting.")
             return
 
         results = [
@@ -438,14 +438,14 @@ class BookmarkManager:
         ]
 
         if not results:
-            messagebox.showinfo("Exportar", "Nenhum resultado para exportar.")
+            messagebox.showinfo("Export", "No results to export.")
             return
 
         filepath = filedialog.asksaveasfilename(
             defaultextension=".html",
             filetypes=[("HTML Files", "*.html")],
-            initialfile=f"favoritos_{query.replace(' ', '_')}.html",
-            title="Salvar favoritos filtrados"
+            initialfile=f"bookmarks_{query.replace(' ', '_')}.html",
+            title="Save filtered bookmarks"
         )
         if not filepath:
             return
@@ -454,8 +454,8 @@ class BookmarkManager:
             "<!DOCTYPE NETSCAPE-Bookmark-file-1>",
             "<!-- This is an automatically generated file. -->",
             "<META HTTP-EQUIV=\"Content-Type\" CONTENT=\"text/html; charset=UTF-8\">",
-            f"<TITLE>Favoritos — {query}</TITLE>",
-            f"<H1>Favoritos filtrados: {query}</H1>",
+            f"<TITLE>Bookmarks — {query}</TITLE>",
+            f"<H1>Filtered bookmarks: {query}</H1>",
             "<DL><p>",
         ]
         for bm in results:
@@ -468,8 +468,8 @@ class BookmarkManager:
             f.write("\n".join(lines))
 
         messagebox.showinfo(
-            "Exportação concluída",
-            f"{len(results)} favorito(s) exportado(s) para:\n{filepath}"
+            "Export completed",
+            f"{len(results)} bookmark(s) exported to:\n{filepath}"
         )
 
     # -------------------------------------------------------
@@ -522,9 +522,9 @@ class BookmarkManager:
                 webbrowser.open(url)
             else:
                 messagebox.showwarning(
-                    "URL bloqueada",
-                    f"Este link não pode ser aberto por segurança:\n\n{url}\n\n"
-                    f"Esquema não permitido: '{parsed.scheme}'"
+                    "URL blocked",
+                    f"This link cannot be opened for security reasons:\n\n{url}\n\n"
+                    f"Scheme not allowed: '{parsed.scheme}'"
                 )
         else:
             is_open = self.tree.item(selected_item[0], "open")
@@ -551,7 +551,7 @@ class BookmarkManager:
     def _update_footer(self):
         folders, links = self._count_recursive()
         self.footer_label.config(
-            text=f"{links} favorito(s) em {folders} pasta(s)"
+            text=f"{links} bookmark(s) in {folders} folder(s)"
         )
 
 
