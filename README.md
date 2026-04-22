@@ -39,7 +39,7 @@ A professional desktop application for Windows to import, organize, and navigate
 ### 2. Setup
 ```bash
 # Clone the repository
-git clone https://github.com/your-user/chad-favorites.git
+git clone https://github.com/gustavo-git/chad-favorites.git
 
 # Enter folder
 cd chad-favorites
@@ -73,6 +73,33 @@ chad-favorites/
 ├── LICENSE                # MIT License
 └── README.md              # Documentation
 ```
+
+---
+
+## 🤝 Contributing & Community Guidelines
+
+We welcome contributions! To maintain a healthy and productive community, please follow these guidelines:
+
+### How to Contribute
+1. **Fork** the project.
+2. **Create a branch** for your feature (`git checkout -b feature/AmazingFeature`).
+3. **Commit** your changes (`git commit -m 'Add some AmazingFeature'`).
+4. **Push** to the branch (`git push origin feature/AmazingFeature`).
+5. **Open a Pull Request**.
+
+### Community Rules
+- **Respect**: Be kind and respectful to all contributors.
+- **Clarity**: Write clear and descriptive commit messages and PR descriptions.
+- **Code Quality**: Ensure your code follows Python PEP 8 standards.
+- **Issues**: Before starting a major change, open an issue to discuss it.
+
+---
+
+## 🛡️ Security Policy
+
+We take security seriously. 
+- **Link Safety**: The application validates all URLs to ensure they use `http` or `https` protocols, preventing the execution of local scripts or malicious schemes.
+- **Reporting Vulnerabilities**: If you find any security vulnerability, please do NOT open a public issue. Instead, contact the maintainers directly at [your-email@example.com] or via private message.
 
 ---
 
