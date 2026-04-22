@@ -99,7 +99,7 @@ We welcome contributions! To maintain a healthy and productive community, please
 
 We take security seriously. 
 - **Link Safety**: The application validates all URLs to ensure they use `http` or `https` protocols, preventing the execution of local scripts or malicious schemes.
-- **Reporting Vulnerabilities**: If you find any security vulnerability, please do NOT open a public issue. Instead, contact the maintainers directly at [your-email@example.com] or via private message.
+- **Reporting Vulnerabilities**: If you find any security vulnerability, please do NOT open a public issue. Instead, contact the maintainers directly at [neguchads@gmail.com] or via private message.
 
 ---
 
