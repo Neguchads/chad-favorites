@@ -1,92 +1,81 @@
-# 📚 Gerenciador de Favoritos
+# 📚 Chad Favorites v1.4.3
 
-Aplicação desktop para Windows que importa e navega arquivos HTML de favoritos exportados de navegadores (Chrome, Firefox, Edge). Permite visualizar a estrutura hierárquica de pastas e links, e pesquisar por título ou URL em tempo real.
-
----
-
-## ✨ Funcionalidades
-
-- 📁 **Importação de HTML** — Carrega arquivos `.html` exportados pelo navegador
-- 🌳 **Árvore hierárquica** — Exibe pastas e links na estrutura original
-- 🔍 **Pesquisa em tempo real** — Filtra favoritos por título ou URL enquanto digita
-- 🖱️ **Duplo clique para abrir** — Abre o link no navegador padrão do sistema
-- 🌙 **Tema automático** — Detecta e aplica o tema claro ou escuro do Windows
-- 💚 **Interface moderna** — Usa `sv_ttk` para visual nativo e fluente
+A professional desktop application for Windows to import, organize, and navigate bookmark HTML files exported from any browser (Chrome, Firefox, Edge, etc.).
 
 ---
 
-## 🛠️ Dependências
+## ✨ Features
 
-| Biblioteca    | Uso                                         |
-|---------------|---------------------------------------------|
-| `tkinter`     | Interface gráfica (incluso no Python)       |
-| `sv_ttk`      | Tema moderno Sun Valley para ttk            |
-| `beautifulsoup4` | Parsing do HTML de favoritos            |
+- 📁 **HTML Import** — Full support for the standard Netscape Bookmark File 1 format.
+- 🌳 **Hierarchical Tree** — Intuitive subfolder navigation.
+- 🔍 **Instant Search** — Filter thousands of bookmarks by title or URL in real-time.
+- 🖼️ **Smart Favicons** — Automatic download and disk caching of site icons for instant access.
+- 💾 **Filtered Export** — Generate new HTML files containing only your search results.
+- 🕐 **Recent History** — Quick access to the last 5 loaded files.
+- 🧠 **Auto-Load** — Remembers the last file opened and loads it instantly on startup.
+- 🌓 **Dynamic Theme** — Automatic Light/Dark mode detection (Windows, macOS, Linux).
+- 🖱️ **Secure Navigation** — Link validation to prevent opening malicious scripts.
 
-### Instalação das dependências
+---
 
+## 🛠️ Tech Stack & Dependencies
+
+| Library | Purpose |
+|---|---|
+| `tkinter` | Native GUI |
+| `sv_ttk` | Modern Sun Valley theme |
+| `beautifulsoup4` | Robust HTML parsing |
+| `pillow` | Image processing (Favicons) |
+| `requests` | Background icon downloads |
+| `darkdetect` | Cross-platform theme detection |
+
+---
+
+## 🚀 Installation & Usage
+
+### 1. Requirements
+- Python 3.9+
+
+### 2. Setup
 ```bash
-pip install sv_ttk beautifulsoup4
+# Clone the repository
+git clone https://github.com/your-user/chad-favorites.git
+
+# Enter folder
+cd chad-favorites
+
+# Install dependencies
+pip install -r requirements.txt
 ```
 
----
-
-## 🚀 Como Usar
-
-### Executando pelo Python
-
+### 3. Running
 ```bash
 python src/favoritos.py
 ```
 
-### Gerando o executável (.exe)
-
+### 4. Build Executable (.exe)
 ```bash
-pyinstaller favoritos.spec
+pyinstaller chad-favorites.spec
 ```
-
-O executável será gerado em `dist/favoritos.exe`.
 
 ---
 
-## 📖 Guia de Uso
+## 📂 Project Structure
 
-1. Exporte seus favoritos no navegador:
-   - **Chrome**: `⋮` → Favoritos → Gerenciar favoritos → Exportar favoritos
-   - **Firefox**: Menu → Favoritos → Gerenciar favoritos → Importar e fazer backup → Exportar favoritos para HTML
-   - **Edge**: `⋯` → Favoritos → Gerenciar favoritos → Exportar favoritos
-
-2. Abra a aplicação e clique em **📁 Carregar HTML**
-3. Selecione o arquivo `.html` exportado
-4. Navegue pelas pastas ou use a barra de **Pesquisar**
-5. **Duplo clique** em qualquer link para abri-lo no navegador
-
----
-
-## 📂 Estrutura do Projeto
-
-```
-favorites-search-version2/
+```text
+chad-favorites/
 ├── src/
-│   └── favoritos.py       # Código principal da aplicação
-├── build/                 # Arquivos temporários do PyInstaller
-├── dist/                  # Executável gerado
-├── favoritos.spec         # Configuração do PyInstaller
-├── .gitignore
-└── README.md
+│   └── favoritos.py       # Main application logic
+├── assets/
+│   └── icon.ico           # Official app icon
+├── chad-favorites.spec    # PyInstaller build config
+├── requirements.txt       # Python dependencies
+├── LICENSE                # MIT License
+└── README.md              # Documentation
 ```
 
 ---
 
-## 🔧 Detalhes Técnicos
+## ⚖️ License
 
-- **Parser HTML**: `BeautifulSoup` com `html.parser`. A lógica de parsing usa `find_parent('dl')` para corretamente identificar `<dt>` filhos diretos de cada `<dl>`, contornando a forma como os navegadores omitem tags de fechamento no HTML de favoritos.
-- **Tema**: Detectado via registro do Windows (`HKEY_CURRENT_USER\...\Themes\Personalize`). Padrão `dark` em caso de falha.
-- **Navegação**: Pastas expandem/colapsam com duplo clique; links abrem via `webbrowser.open()`.
-
----
-
-## 💻 Requisitos do Sistema
-
-- Windows 10 ou superior
-- Python 3.9+ (somente para rodar via script)
+This project is licensed under the [MIT License](LICENSE).

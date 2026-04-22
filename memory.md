@@ -6,8 +6,8 @@
 
 ## 📌 Visão Geral
 
-**Projeto:** `favorites-search-version2`
-**Versão atual:** v1.4
+**Projeto:** `chad-favorites`
+**Versão atual:** v1.4.3
 **Linguagem:** Python 3
 **UI:** Tkinter + `sv_ttk` (Sun Valley Theme)
 **Parser:** BeautifulSoup 4
@@ -22,7 +22,7 @@
 | Arquivo | Função |
 |---|---|
 | `src/favoritos.py` | Toda a lógica: UI, parsing, pesquisa, abertura de links |
-| `favoritos.spec` | Configuração do PyInstaller (icon, datas, hiddenimports) |
+| `chad-favorites.spec` | Configuração do PyInstaller (icon, datas, hiddenimports) |
 | `assets/icon.ico` | Ícone da aplicação (6 tamanhos: 16→56px) — gerado com Pillow |
 | `src/recent_files.json` | Gerado em runtime — persiste os últimos 5 arquivos carregados |
 | `next_steps.md` | Backlog de melhorias priorizadas |
@@ -170,3 +170,13 @@ for dt in direct_dts:
 - [x] Detecção de tema cross-platform via `darkdetect`
 - [x] Remoção da barra de status verde ("Pronto para uso") do topo
 - [x] Carregamento automático do último arquivo carregado na inicialização do app
+
+---
+
+## 🚀 Estratégia para GitHub (v1.4.3+)
+Para manter a privacidade e o profissionalismo ao subir para o GitHub:
+- **`memory.md` e `next_steps.md`**: Adicionados ao `.gitignore`. Eles permanecem na máquina local como histórico de desenvolvimento, mas não são públicos.
+- **`recent_files.json` e `favicons/`**: Adicionados ao `.gitignore`. Contêm dados privados do usuário e cache local.
+- **`requirements.txt` e `LICENSE`**: Criados para seguir os padrões da comunidade.
+- **`README.md`**: Totalmente reformulado para destacar as funcionalidades premium e guiar novos usuários.
+

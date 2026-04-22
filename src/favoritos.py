@@ -24,7 +24,7 @@ except ImportError:
 # -------------------------------------------------------
 if getattr(sys, 'frozen', False):
     # Em modo executável, usamos a pasta AppData do usuário para persistência garantida
-    _APP_DIR = os.path.join(os.environ.get('APPDATA', os.path.expanduser('~')), "GerenciadorFavoritos")
+    _APP_DIR = os.path.join(os.environ.get('APPDATA', os.path.expanduser('~')), "ChadFavorites")
 else:
     _APP_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -107,7 +107,7 @@ def save_recent_files(files):
 class BookmarkManager:
     def __init__(self, root):
         self.root = root
-        self.app_title = "Gerenciador de Favoritos"
+        self.app_title = "Chad Favorites"
         self.root.title(self.app_title)
         self.root.geometry("1000x700")
 

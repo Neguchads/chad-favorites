@@ -1,17 +1,37 @@
-# Ignorar pastas de build do PyInstaller
+# --- Pastas de Build (PyInstaller) ---
 build/
 dist/
-
-# Ignorar o executável gerado (boas práticas pro GitHub, depois mostro como enviar como Release)
-*.exe
-
-# Pastas de cache padrão do Python
-__pycache__/
-*.py[cod]
-
-# Arquivos de spec do pyinstaller
 *.spec
 
-# Credenciais e Artefatos Locais de Autenticação/DRM
-*sigil_credential*.txt
-*Sigil_Credential*.txt
+# --- Executáveis ---
+*.exe
+
+# --- Cache do Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Dados do Usuário e Cache Local (PRIVACIDADE) ---
+# Ignoramos estes arquivos para não subir caminhos de pastas locais ou dados do seu PC
+recent_files.json
+favicons/
+*.log
+
+# --- Documentação de Desenvolvimento (LOCAL APENAS) ---
+# Estes arquivos ficam na sua máquina mas não sobem para o GitHub
+memory.md
+next_steps.md
+scratch/
+
+# --- IDEs ---
+.vscode/
+.idea/
+.project
+.pydevproject
+.settings/
+
+# --- Ambiente Virtual ---
+venv/
+.venv/
+env/
+.env
